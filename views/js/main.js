@@ -525,11 +525,11 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  
   //These lines don't need to be in a for loop! They don't change based on the value of i. 
   //But if you take them out in this exact fashion, they don't get added to the scopes properly.
-
-
-  for (var i = 0; i < 60; i++) { //User would need an absolutely insane resolution to get 200 pizzas.
+  //User would need an absolutely insane resolution to get 200 pizzas. 60 should be enough to display properly.
+  for (var i = 0; i < 60; i++) { 
     var elem = document.createElement('img'); 
     elem.className = 'mover';
     elem.src = "images/pizza.png";
