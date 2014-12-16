@@ -506,6 +506,7 @@ function updatePositions() {
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     //Too far to the right, transforms properly though. basicLeft being decremented by 640 is a kludge.
+    //This halves paint costs, but it might do even better when I figure out how to translate Y too.
     items[i].style.transform = 'translateX(' + ( (items[i].basicLeft - 640) + 100 * phase) + 'px)';
     //items[i].style.left = items[i].basicLeft + 100 * phase + 'px'; //Legacy code
   }
@@ -537,9 +538,9 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % 8) * 256;
-    //TranslateY gets overwritten. Fix this!
-    elem.style.transform = 'translateY(' + (Math.floor(i / 8) * 256) + 'px)'; 
-    //elem.style.top = (Math.floor(i / 8) * 256) + 'px';
+    //Figure out how to use translateY and translateX at the same time!
+    //elem.style.transform = 'translateY(' + (Math.floor(i / 8) * 256) + 'px)'; 
+    elem.style.top = (Math.floor(i / 8) * 256) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
