@@ -2,7 +2,7 @@
 <html>
 <head>  
   <!--link rel="stylesheet" href="css/style.css"-->
-  <link rel="stylesheet" href="css/bootstrap-grid.css"> <!-- This huge file needs to be minified, but it has to wait until the javascript is a bit nicer. -->
+  <!--link rel="stylesheet" href="css/bootstrap-grid.css"--> <!-- This huge file needs to be minified, but it has to wait until the javascript is a bit nicer. -->
   <!--Too much critical CSS in style.css-->
     <style> 
     * {
@@ -10,46 +10,37 @@
       -moz-box-sizing: border-box;
       -box-sizing: border-box;
     }
-
     body {
       font-family: "Trebuchet MS", Helvetica, sans-serif;
       background: black;
     }
-
     input {
       background: grey;
       font-size: 18px;
     }
-
     form {
       display: inline-block;
     }
-
     .centered {
       text-align: center;
     }
-
     #pizzaSize {
       font-weight: 800;
     }
-
     .mover {
       position: fixed;
       width: 256px;
       z-index: -1;
     }
-
     .randomPizzaContainer {
       float: left;
       display: flex;
     }
-
     .randomPizzaContainer:after {
       content: "";
       display: table;
       clear:both;
     }
-
      .container {
       background-color: rgba(240, 60, 60, 0.8);
     }
@@ -188,6 +179,17 @@
     </div>
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
+  <script>
+    var cb = function() {
+      var l = document.createElement('link'); l.rel = 'stylesheet';
+      l.href = 'css/bootstrap-grid.css';
+      var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+    };
+    var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+        webkitRequestAnimationFrame || msRequestAnimationFrame;
+    if (raf) raf(cb);
+    else window.addEventListener('load', cb);
+  </script>
   <script type="text/javascript" src="js/main.js"></script>
 </body>
 
