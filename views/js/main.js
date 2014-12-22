@@ -399,7 +399,8 @@ var pizzaElementGenerator = function(i) {
 }
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
-var resizePizzas = function(size) { 
+var resizePizzas = function(size) {
+
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
@@ -450,9 +451,11 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
+    //No longer calculates every pizza's stage seperately.
+    //Image resizing behavior degraded at some point.      
+    var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[0], size);
+    var newwidth = (document.querySelectorAll(".randomPizzaContainer")[0].offsetWidth + dx) + 'px';
     for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
       document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
     }
   }
@@ -503,8 +506,11 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
+
+  var pagePosition = document.body.scrollTop / 1250; //Not recalculating this in the loop seems to be good for a 20-30% boost?
+
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    var phase = Math.sin(pagePosition + (i % 5));
     //Too far to the right, transforms properly though. basicLeft being decremented by 640 is a kludge.
     //This halves paint costs, but it might do even better when I figure out how to translate Y too.
     items[i].style.transform = 'translateX(' + ( (items[i].basicLeft - 640) + 100 * phase) + 'px)';
@@ -523,6 +529,8 @@ function updatePositions() {
 
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
+
+
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
