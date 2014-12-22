@@ -530,15 +530,11 @@ function updatePositions() {
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
 
-
-
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
-  //Removed two unneccessary variables that didn't need to be defined every time.
 
-  //These lines don't need to be in a for loop! They don't change based on the value of i. 
-  //But if you take them out in this exact fashion, they don't get added to the scopes properly.
-  //User would need an absolutely insane resolution to get 200 pizzas. 60 should be enough to display properly.
+  //User would need an absolutely insane resolution to get 200 pizzas.
+  //60 seems to be okay for up to 2560x1600. 
   for (var i = 0; i < 60; i++) { 
     var elem = document.createElement('img'); 
     elem.className = 'mover';
